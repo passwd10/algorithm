@@ -5,12 +5,12 @@ const solution = (requestArr, budget) => {
 }
 
 const cantGetBudget = (sortArr, budget) =>
-        budget - HEAD(sortArr) >= 0
-        ? cantGetBudget(TAIL(sortArr), budget - HEAD(sortArr))
+        budget - head(sortArr) >= 0
+        ? cantGetBudget(tail(sortArr), budget - head(sortArr))
         : sortArr;
 
-const HEAD = arr => arr.slice(0, 1)[0];
-const TAIL = arr => arr.slice(1);
+const head = arr => arr.slice(0, 1)[0];
+const tail = arr => arr.slice(1);
 
 test('solution', () => {
     expect(solution([1, 3, 2, 5, 4], 9)).toBe(3);
