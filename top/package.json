@@ -1,7 +1,7 @@
 {
   "name": "top",
   "version": "1.0.0",
-  "description": "",
+  "description": "## 1. 이해",
   "main": "index.js",
   "scripts": {
     "test": "jest"
