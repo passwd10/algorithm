@@ -1,13 +1,13 @@
 const solution = arr => {
-  let resultArr = [arr[0]];
-  for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i] !== arr[i + 1]) {
-      resultArr = [...resultArr, arr[i + 1]]
-    }
-  }
-  return resultArr
+  return arr.reduce(reducer, []);
 }
 
+const reducer = (acc, value) => {
+  (acc[acc.length-1] !== value) && acc.push(value)
+  return acc;
+}
+
+const solution2 = (arr) => arr.filter((v, index) => v != arr[index + 1]);
 
 test('solution', () => {
   expect(solution([1, 1, 3, 3, 0, 1, 1])).toEqual([1, 3, 0, 1]);
