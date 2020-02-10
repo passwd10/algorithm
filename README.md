@@ -27,5 +27,5 @@
 - [약수의 합](https://github.com/passwd10/daily_algorithm_ps/tree/master/sumOfFactor)
 - [탑](https://github.com/passwd10/daily_algorithm_ps/tree/master/top)
 - [체육복](https://github.com/passwd10/daily_algorithm_ps/tree/master/workoutClothes)
-- [나누어 떨어지는 숫자 배열](https://github.com/passwd10/daily_algorithm_ps/tree/master/division-num-arr)
+- [나누어 떨어지는 숫자 배열](https://github.com/passwd10/daily_algorithm_ps/tree/master/divisoin-num-arr)
 - [수박수박수박수박수박수?](https://github.com/passwd10/daily_algorithm_ps/tree/master/watermelon)
