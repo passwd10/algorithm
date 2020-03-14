@@ -1,22 +1,26 @@
 const ironSticksCount = (arrangement) => {
-    let result = 0;
-    let st = [];
- 
-    for (let i=0; i < arrangement.length; i++) {
-        if (arrangement[i] === '('){
-            st.push(arrangement[i]);
+    const stickArr = arrangement.split('');
+    const stack = [];
+    let count = 0;
+
+    stickArr.forEach((v, i) => {
+        if (v === '(') {
+            stack.push(v);
         } else {
-            st.pop();
-            if (arrangement[i-1] === '(') {
-                result += st.length;
-            } else result +=1;
+            if (stickArr[i - 1] === '(') {
+                count += stack.length - 1;
+            }
+            if (stickArr[i - 1] === ')') {
+                count += 1;
+            }
+            stack.pop();
         }
-    }
-    return result ;
+    })
+    return count;
 };
 
 
 test('ironSticksCount', () => {
-  expect(ironSticksCount('(((()())(())()))')).toBe(15);
-  expect(ironSticksCount('()(((()())(())()))(())')).toBe(17);
+    expect(ironSticksCount('(((()())(())()))')).toBe(15);
+    expect(ironSticksCount('()(((()())(())()))(())')).toBe(17);
 })
