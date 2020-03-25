@@ -1,17 +1,15 @@
 const solution = (people, limit) => {
   let answer = 0;
-  let index = people.length - 1;
+  let second = people.length - 1;
 
   people.sort((a, b) => a - b);
   
-  for (let i = 0; i <= index; i++) {
-    
-    while (index > i && people[i] + people[index--] > limit) {
-      answer += 1;
+  for (let first = 0; first <= second; first++) {
+    if(people[first] + people[second--] > limit) {
+      first -= 1;
     }
     answer += 1;
   }
-
   return answer;
 }
 
