@@ -1,0 +1,25 @@
+{
+  "name": "daily_algorithm_ps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "test -- --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/passwd10/daily_algorithm_ps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/passwd10/daily_algorithm_ps/issues"
+  },
+  "homepage": "https://github.com/passwd10/daily_algorithm_ps#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "jest": "^24.9.0"
+  }
+}
