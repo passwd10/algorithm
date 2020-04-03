@@ -1,31 +1,22 @@
-// nCm
-// a : 시작하는 수
+// nCr
 
-let n = 4;
-let m = 2;
-let num = [1, 2, 3, 4];
-let check = [];
-let result = [];
+const final = [];
 
-const combination = (i, a) => {
-  if (i === m) {
-    let temp = [];
-    for (let k = 0; k < m; k++) {
-      temp.push(num[k]);
-    }
-    result.push(temp);
-    // console.log('i', i, '\na', a, '\nresult', result)        
+const combination = (source, target, n, r, count) => {
+  if (r === 0) final.push(target);
+  else if (n === 0 || n < r) return;
+  else {
+    target.push(source[count]);
+    combination(source, Object.assign([], target), n - 1, r - 1, count + 1);
+    target.pop();
+    combination(source, Object.assign([], target), n - 1, r, count + 1);
   }
-  for (let k = a; k <= n; k++) {
-    if (check[k] !== 1) {
-      check[k] = 1;
-      num[i] = k;
-      combination(i + 1, k);
-      check[k] = 0;
-    }
+  if (count === 0) {
+    console.log(final);
+    return final;
   }
 }
 
 test('combination', () => {
-  expect(combination(0, 1)).toEqual([1]);
+  expect(combination(['a', 'b', 'c', 'd', 'e'],[], 5, 4, 0)).toBe(1);
 })
