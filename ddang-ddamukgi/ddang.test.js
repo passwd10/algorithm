@@ -1,38 +1,21 @@
-/*
-- N행 4열로 이루어짐
-- 행의 한칸만 밟아야 하고 바로위에서 밟은열을 또 밟을 수 없다
-- 얻을 수 있는 점수 최대값
-
-DFS사용
-*/
-
 const solution = (land) => {
-  let answer = [];
-
-  for (let a = 0; a < 4; a++) {
-    let beforeIdx = a;
-    let sum = land[0][a];
-    let max = 0;
-
-    for (let i = 1; i < land.length; i++) {
-      let temp = land[i][beforeIdx];
-      land[i][beforeIdx] = -1;
-      max = Math.max(...land[i]);
-      sum += max;
-      land[i][beforeIdx] = temp;
-      beforeIdx = land[i].findIndex(v => v === max);
+  for (let i = 0; i < land.length; i++) {
+    for (let j = 0; j < land[0].length; j++) {
+      let temp = land[i][j];
+      if (i + 1 < land.length) {
+        land[i][j] = -1;
+        land[i + 1][j] += Math.max(...land[i]);
+        land[i][j] = temp;
+      }
     }
-
-    answer.push(sum);
   }
-  console.log(answer)
-  return Math.max(...answer);
+
+  return Math.max(...land[land.length - 1]);
 }
 
-
 test('solution', () => {
-  expect(solution([[1,2,3,5],[5,6,7,8],[4,3,2,1]])).toBe(16);
-  expect(solution([[1,2,3,4],[1,2,3,4],[1,2,3,4]])).toBe(11);
-  expect(solution([[1,2,3,5],[5,6,7,100],[4,3,2,1]])).toBe(107);
-
+  expect(solution([[1, 2, 3, 5], [5, 6, 7, 8], [4, 3, 2, 1]])).toBe(16);
+  expect(solution([[1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4]])).toBe(11);
+  expect(solution([[1, 2, 3, 5], [5, 6, 7, 100], [4, 3, 2, 1]])).toBe(107);
+  expect(solution([[4, 3, 2, 1], [2, 2, 2, 1], [6, 6, 6, 5], [8, 7, 6, 5]])).toBe(20);
 })
