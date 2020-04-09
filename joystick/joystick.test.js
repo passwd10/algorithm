@@ -7,65 +7,44 @@
 6. 알파벳이 완성될 때 마다 입력받은 알파벳과 비교하고, 알파벳이 같으면 count값을 반환한다.
 */
 
-const getJoystickCount = (str) => {
-  let count = 0;
+const getJoystickCount = (name) => {
+  let nameLen = name.length;
+  let answer = 0;
+  let move = nameLen - 1; //최대 이동횟수
 
-  const strToAsci = str.split('').map((_, i) => str.charCodeAt(i));
+  for (let i = 0; i < nameLen; i++) {
+    let startTo = name[i].charCodeAt() - 65;
+    let endTo = 90 - name[i].charCodeAt() + 1;
+    let next = i + 1; //정방향
 
-  //방향 결정
-  const firstAsci = strToAsci.shift();
-  const direction = strToAsci.indexOf(65) < strToAsci.reverse().indexOf(65) ? 'reverse' : 'forward';
+    answer += startTo > endTo ? endTo : startTo; //위아래 이동횟수
 
-  strToAsci.reverse();
-  strToAsci.unshift(firstAsci);
-
-  //각 문자 변환 개수 합
-  strToAsci.forEach((v, i) => {
-    count += getAsciTransformCount(v)
-  })
-
-  const leng = strToAsci.length;
-
-  //정방향 일때
-  if (direction === 'forward') {
-    for (let i = 0; i < leng; i++) {
-      strToAsci.lastIndexOf(65) === strToAsci.length - 1 && strToAsci.splice(strToAsci.length - 1);
+    while (next < nameLen && name[next] === 'A') {
+      next += 1;
     }
-    strToAsci.length - 1 <= 0 ? count += 0 : count += strToAsci.length - 1;
+    console.log('i :', i, '\nnameLen :', nameLen, '\nnext :', next, '\nmove :', move);
+    move = Math.min(move, (i + nameLen - next) + Math.min(i, nameLen - next));
+    //i + nameLen - next : 왼쪽으로 돌아갔을 때 A가 아닌 것을 만날때 까지 이동한 횟수
+    //Math.min(i, nameLen - next) => 현재 진행 인덱스, 뒤에서 가장 가까운 A가 아닌 인덱스 중 작은것
   }
 
-  //반대방향 일때
-  if (direction === 'reverse') {
-    const reverseAsci = strToAsci.reverse().slice(0, leng - 1);
-
-    for (let i = 0; i < leng; i++) {
-      reverseAsci.lastIndexOf(65) === reverseAsci.length - 1 && reverseAsci.splice(reverseAsci.length - 1);
-    }
-    count += reverseAsci.length;
-  }
-
-  return count;
+  answer += move;
+  return answer;
 }
 
-const getAsciTransformCount = (asci) => asci - 65 > 13 ? 90 - asci + 1 : asci - 65;
-
 test('getJoystickCount', () => {
-  expect(getJoystickCount('AABAAAAAAABBB')).toBe(15);
-  expect(getJoystickCount('JAN')).toBe(23);
-  expect(getJoystickCount('JEROEN')).toBe(56);
-  expect(getJoystickCount('JEROENA')).toBe(56);
-  expect(getJoystickCount('AAA')).toBe(0);
-  expect(getJoystickCount('ABA')).toBe(2);
-  expect(getJoystickCount('AZA')).toBe(2);
-  expect(getJoystickCount('AAZA')).toBe(3);
-  expect(getJoystickCount('AZZA')).toBe(4);
-  expect(getJoystickCount('ZZZZ')).toBe(7);
-  expect(getJoystickCount('AZAZ')).toBe(5);
-  expect(getJoystickCount('ZZAZ')).toBe(6);
-  expect(getJoystickCount('AMN')).toBe(27);
+  expect(getJoystickCount('AABABAAAAAAABA')).toBe(11);
+  // expect(getJoystickCount('AAAZA')).toBe(3);
+  // expect(getJoystickCount('ABA')).toBe(2);
+  // expect(getJoystickCount('JAN')).toBe(23);
+  // expect(getJoystickCount('JEROEN')).toBe(56);
+  // expect(getJoystickCount('JEROENA')).toBe(56);
+  // expect(getJoystickCount('AAA')).toBe(0);
+  // expect(getJoystickCount('AZA')).toBe(2);
+  // expect(getJoystickCount('AZZA')).toBe(4);
+  // expect(getJoystickCount('ZZZZ')).toBe(7);
+  // expect(getJoystickCount('AZAZ')).toBe(5);
+  // expect(getJoystickCount('ZZAZ')).toBe(6);
+  // expect(getJoystickCount('AMN')).toBe(27);
+  // expect(getJoystickCount('AABAAAAAAABBB')).toBe(12);
 });
-
-test('getAsciTransformCount', () => {
-  expect(getAsciTransformCount(65)).toBe(0);
-  expect(getAsciTransformCount(90)).toBe(1);
-})
