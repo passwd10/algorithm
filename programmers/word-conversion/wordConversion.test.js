@@ -1,44 +1,35 @@
+// 1. 변경해야하는 문자의 인덱스를 체크
+// 2. target과 word와 변경해야하는 인덱스 체크하여 변경해야하는 문자가 있는지 확인
+// 3. 변경해야하는 문자가 있으면 변경하고 Cnt + 1
 const solution = (begin, target, words) => {
-  const result = [];
+  let resultWord = [...begin];
+  const checkNeedToChange = new Map();
 
-  const search = (begin, target, words, cnt) => {
-    if (words.length === 0 && begin !== target) {
-      return 0;
-    } else if (begin === target) {
-      return result.push(cnt);
-    } else {
-      for (let i = 0; i < words.length; i++) {
-        if (isOverlap(begin, words[i])) {
-          search(words[i], target, words.slice(i + 1, words.length), cnt + 1)
-        }
+  for (const index in begin) {
+    if (begin[index] !== target[index]) {
+      checkNeedToChange.set(index, false)
+      continue;
+    }
+    checkNeedToChange.set(index, true);
+  }
+
+  console.log(checkNeedToChange)
+  let answer = 0;
+
+  words.forEach(word => {
+    for (const index in word) {
+      if (!checkNeedToChange.get(index) && word[index] === target[index]) {
+        resultWord[index] = word[index];
+        checkNeedToChange.set(index, true);
+        answer += 1;
       }
     }
-  }
-
-  search(begin, target, words, 0);
-
-  return result.length === 0 ? 0 : Math.min(...result);
-}
-
-const isOverlap = (a, b) => {
-  let cnt = 0;
-
-  for (let i = 0; i < a.length; i++) {
-    if (a[i] !== b[i]) {
-      cnt += 1;
-    }
-  }
-
-  return cnt === 1 ? true : false;
+  })
+  return resultWord.join('') === target ? answer : 0;
 }
 
 test('solution', () => {
   expect(solution("hit", "cog", ['hot', 'dot', 'dog', 'lot', 'log', 'cog'])).toBe(4);
   expect(solution("hit", "cog", ['hot', 'dot', 'dog', 'lot', 'log'])).toBe(0);
   expect(solution("hit", "hhh", ['hhh', 'hht'])).toBe(2);
-})
-
-test('겹치는지 확인', () => {
-  expect(isOverlap("hit", "hot")).toBe(true);
-  expect(isOverlap("hit", "dot")).toBe(false);
 })
