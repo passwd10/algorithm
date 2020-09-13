@@ -4,7 +4,7 @@
 
 ```bash
 #파일 실행
-python [filename]
+python3 [filename]
 
 #전체 테스트 실행
 ptw
