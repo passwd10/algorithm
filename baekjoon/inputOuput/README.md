@@ -37,3 +37,8 @@ import sys
 for line in sys.stdin:
   input_data = line
 ```
+
+```python
+# 입력받은 문자열 한글자씩 list에 넣기
+input_Data = list(input())
+```
