@@ -10,3 +10,7 @@
 - [MaxCounters(fail)](https://app.codility.com/demo/results/training4VUHCP-QE7/)
 
 - [MaxCounters](https://app.codility.com/demo/results/trainingJNYBK5-FBC/)
+
+- [MissingInteger](https://app.codility.com/demo/results/trainingW7EJ9Y-6J8/)
+
+- [PermCheck](https://app.codility.com/demo/results/trainingWJA5TZ-9J5/)
